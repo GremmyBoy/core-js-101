@@ -19,8 +19,9 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  const x1 = new Date(value);
+  return x1;
 }
 
 /**
@@ -34,8 +35,9 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  const x1 = new Date(value);
+  return x1;
 }
 
 
@@ -53,8 +55,13 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const x = date.getFullYear();
+  if ((x % 4 === 0 && x % 100 !== 0)
+    || x % 400 === 0) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -73,8 +80,32 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const x1 = startDate.getHours();
+  const x2 = endDate.getHours();
+  let x3 = x2 - x1;
+  if (x3 < 10) {
+    x3 = `0${x3}`;
+  }
+  const y1 = startDate.getMinutes();
+  const y2 = endDate.getMinutes();
+  let y3 = y2 - y1;
+  if (y3 < 10) {
+    y3 = `0${y3}`;
+  }
+  const z1 = startDate.getSeconds();
+  const z2 = endDate.getSeconds();
+  let z3 = z2 - z1;
+  if (z3 < 10) {
+    z3 = `0${z3}`;
+  }
+  const c1 = startDate.getMilliseconds();
+  const c2 = endDate.getMilliseconds();
+  let c3 = c2 - c1;
+  if (c3 < 100) {
+    c3 = `00${c3}`;
+  }
+  return `${x3}:${y3}:${z3}.${c3}`;
 }
 
 
